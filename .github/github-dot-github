@@ -55,17 +55,19 @@ else
     cd .github
     Github_Dot_Github_Files=("CODE_OF_CONDUCT.md" "CONTRIBUTING.md" "GPLv3.LICENSE.md" "LICENSE.md" "README.md")
     for Github_Dot_Github_File in ${Github_Dot_Github_Files[@]}; do
-        if [ ! -f "${Github_Dot_Github_File}" ]; then
+        if [ -w "${Github_Project}.${Github_Dot_Github_File}" ]; then
+            printf "%-${Padding}s = %s\n" "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
+            sed -i "s#${Github_Project}#${Project_Name}#g" "${Github_Project}.${Github_Dot_Github_File}"
+            mv "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
+        fi
+
+        if [ ! -h "${Github_Dot_Github_File}" ]; then
             continue
         else
             rm -f "${Github_Dot_Github_File}"
         fi
-        printf "%-${Padding}s = %s\n" "${Project_Name}.${Github_Dot_Github_File}" "${Github_Dot_Github_File}"
 
-        if [ -w "${Github_Project}.${Github_Dot_Github_File}" ]; then
-            printf "%-${Padding}s = %s\n" "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
-            mv "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
-        fi
+        printf "%-${Padding}s = %s\n" "${Project_Name}.${Github_Dot_Github_File}" "${Github_Dot_Github_File}"
 
         ln -s "${Project_Name}.${Github_Dot_Github_File}" "${Github_Dot_Github_File}"
     done
