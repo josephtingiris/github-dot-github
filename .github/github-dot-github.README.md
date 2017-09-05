@@ -30,7 +30,8 @@ Download to the project directory, add, and commit.  i.e.:
 export Project_Name=my-project
 mkdir $Project_Name && cd $Project_Name
 curl -LOk https://github.com/josephtingiris/github-dot-github/archive/master.zip && unzip -j master.zip github-dot-github-master/.github/* -d .github/ && rm -f master.zip
-sh .github/github-dot-github $Project_Name
+# (optionally) get github-dot-github from https://github.com/josephtingiris/github-bin
+github-dot-github $Project_Name
 ```
 
 ## Usage
