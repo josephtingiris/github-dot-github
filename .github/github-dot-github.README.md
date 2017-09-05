@@ -1,10 +1,10 @@
 <!-- Markdown link definitions -->
 [init-base]: https://github.com/josephtingiris/github-dot-github
-[init-conduct]: .github/github-dot-github.CODE_OF_CONDUCT.md
-[init-contributing]: .github/github-dot-github.CONTRIBUTING.md
+[init-conduct]: github-dot-github.CODE_OF_CONDUCT.md
+[init-contributing]: github-dot-github.CONTRIBUTING.md
 [init-installation]: #Installation
 [init-issue]: https://github.com/josephtingiris/github-dot-github/issues/new
-[init-license]: .github/github-dot-github.GPLv3.LICENSE.md
+[init-license]: github-dot-github.GPLv3.LICENSE.md
 [init-support]: #Support
 [init-usage]: #Usage
 [init-wiki]: https://github.com/josephtingiris/github-dot-github/wiki
