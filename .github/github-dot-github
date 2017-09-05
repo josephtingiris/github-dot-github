@@ -85,6 +85,10 @@ echo
 git status
 echo
 
+echo "Next steps ..."
+echo
+
+echo "git commit -m 'first commit'"
 echo "git remote add origin git@github.com:josephtingiris/${Project_Name}.git"
 echo "git push -u origin master"
 cd "$Working_Dir"
