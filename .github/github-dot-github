@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# This script will help initialize a new github repo.
+
+# 20170905, joseph.tingiris@gmail.com
+
+if [ "$1" == "" ]; then
+    echo "must supply a project name"
+    exit 1
+fi
+
+# set printf padding
+declare -i Padding=40
+
+# capture working directory
+export Working_Dir=$(pwd)
+printf "%-${Padding}s = %s\n" "Working Directory" "$Working_Dir"
+
+# set project name
+if [ "$1" == "." ]; then
+    export Project_Name=$(basename $(readlink -f .))
+else
+    export Project_Name="$1"
+fi
+printf "%-${Padding}s = %s\n" "Project Name" "$Project_Name"
+
+# set & check project directory
+export Project_Dir=$(basename $(readlink -f .))
+if [ "$Project_Name" != "$Project_Dir" ]; then
+    export Project_Dir="$Project_Name"
+    if [ ! -d "$Project_Dir" ]; then
+        mkdir -p "$Project_Dir"
+        cd "$Project_Dir"
+    fi
+fi
+
+Github_Project=github-dot-github
+
+# curl $Github_Project master.zip & optionally overwrite existing files
+rm -rf .github
+curl -LOk https://github.com/josephtingiris/${Github_Project}/archive/master.zip && unzip -j master.zip ${Github_Project}-master/.github/* -d .github/ && rm -f master.zip
+
+# check if curl returned successfuly
+if [ $? -ne 0 ]; then
+    echo "error curling master.zip"
+    exit 2
+else
+    echo
+fi
+
+if [ ! -d .github ]; then
+    echo "missing .github directory"
+    exit 3
+else
+    cd .github
+    Github_Dot_Github_Files=("CODE_OF_CONDUCT.md" "CONTRIBUTING.md" "GPLv3.LICENSE.md" "LICENSE.md" "README.md")
+    for Github_Dot_Github_File in ${Github_Dot_Github_Files[@]}; do
+        if [ ! -f "${Github_Dot_Github_File}" ]; then
+            continue
+        else
+            rm -f "${Github_Dot_Github_File}"
+        fi
+        printf "%-${Padding}s = %s\n" "${Project_Name}.${Github_Dot_Github_File}" "${Github_Dot_Github_File}"
+
+        if [ -w "${Github_Project}.${Github_Dot_Github_File}" ]; then
+            printf "%-${Padding}s = %s\n" "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
+            mv "${Github_Project}.${Github_Dot_Github_File}" "${Project_Name}.${Github_Dot_Github_File}"
+        fi
+
+        ln -s "${Project_Name}.${Github_Dot_Github_File}" "${Github_Dot_Github_File}"
+    done
+    cd ..
+fi
+
+if [ ! -d .git ]; then
+    echo
+    git init
+fi
+
+git add .github/*
+
+echo
+git status
+echo
+
+echo "git remote add origin git@github.com:josephtingiris/${Project_Name}.git"
+echo "git push -u origin master"
+cd "$Working_Dir"

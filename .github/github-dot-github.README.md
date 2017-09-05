@@ -4,7 +4,7 @@
 [init-contributing]: github-dot-github.CONTRIBUTING.md
 [init-installation]: #Installation
 [init-issue]: https://github.com/josephtingiris/github-dot-github/issues/new
-[init-license]: github-dot-github.GPLv3.LICENSE.md
+[init-license]: github-dot-github.LICENSE.md
 [init-support]: #Support
 [init-usage]: #Usage
 [init-wiki]: https://github.com/josephtingiris/github-dot-github/wiki
@@ -27,20 +27,8 @@ This is an initial structure for a composite project that contains code from mul
 Download to the project directory, add, and commit.  i.e.:
 
 ```sh
-curl -LOk https://github.com/josephtingiris/github-dot-github/archive/master.zip && unzip -j master.zip github-dot-github-master/.github/* -d .github/ && rm master.zip
-# modify .github files as needed
-git add .github/
-git commit -m "github-dot-github integration"
-```
-
-Create a new project repository, via ssh. i.e.:
-
-```sh
-git init
-git add .github/* .gitignore
-git commit -m "initial commit"
-git remote add origin git@github.com:josephtingiris/github-dot-github.git
-git push -u origin master
+curl -LOk https://github.com/josephtingiris/github-dot-github/archive/master.zip && unzip -j master.zip github-dot-github-master/.github/* -d .github/ && rm -f master.zip
+sh .github/github-dot-github project-name
 ```
 
 ## Usage

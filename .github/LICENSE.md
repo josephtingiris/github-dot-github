@@ -1,1 +1,1 @@
-github-dot-github.GPLv3.LICENSE.md
+github-dot-github.LICENSE.md
